@@ -1,8 +1,8 @@
-%Written by KV 6/23/22 to analyze fp recordings. 
-%did some myself, then added in code from Robinson 2019 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6819083/
+%Written by KV 6/23/22 to analyze fp recordings during fear conditioning and extinction sessions. 
+%added in code from Robinson 2019 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6819083/
 %methods also in Lerner 2015. 
-%1/19/23: Kv edits. made the timesteps automated so you don't have to manually copy paste anything 
-%1/25/23: KV edits to standardize baseline correction for z transform 
+%1/19/23: made the timesteps automated so you don't have to manually copy paste anything 
+%1/25/23: standardize baseline correction for z transform 
 
 %% 1. Load your data: 
 clear all; close all;
@@ -17,8 +17,7 @@ A=readtable(files1.name,  'Format', 'auto'); %check this to make sure it loads c
 %from this timestep later. 
 
 indx_onset=find(strcmp('Input1*2*0;',A{:,2})) 
-% %onset is always going to have one more element because it signals when the session ends too, so need to
-% %delete:
+%onset is always going to have one more element because it signals when the session ends too, so need to delete:
 indx_onset(end)=[];
 indx_offset=find(strcmp('Input1*2*1;',A{:,2})) 
 
