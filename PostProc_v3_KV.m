@@ -1,8 +1,7 @@
 %% Create DATA structure with PSTH and Zscore
 % updated to work with concatenated outputs.
-% function DATA = createDATAstruct(path0)
+% function DATA = createDATAstruct(path0) 
 % path to kilosort and phy outputs (should be raw data location too)
-% Edited by EA on 8/20/2023
 %Edited by KV 8/21/23 for PF optrode recordings
 %Edited by KV in October 2023 to add waveform properties, check sorting
 %quality, added scrolling psth/raster plots, add auto search for responders, some quantification of firing rate etc
