@@ -120,13 +120,12 @@ for ch11= 1:32
     channel = chanMap(ch11);
     spkSigref = spkSig_total;
     spkSig1 = spkSigref(:,ch11);
-    
     bslnEpoch = 10*Fs; % number of samples in 10 seconds
     bslnMu = mean(spkSig1(1:bslnEpoch)); 
     bslnSD = std(spkSig1(1:bslnEpoch));
-    sig2 = (spkSig1-bslnMu)./bslnSD;  % converting to z score based on initial baseline voltage for each file
-    % Keeping spkSig in voltage and sig2 in z
-    % Thresholding spikes:
+    sig2 = (spkSig1-bslnMu)./bslnSD;  % converting to z score based on initial baseline voltage for each file. Keeping spkSig in voltage and sig2 in z
+
+% Thresholding spikes:
     if spkThres > 0
         spks1 = t1(sig2 >= spkThres);
     else
@@ -134,7 +133,6 @@ for ch11= 1:32
     end
     spksisi = diff(spks1); % diff will shift data by one position and we must correct for that
     spks1 = [spks1(1);spks1(find(spksisi>Spkrefrac)+1)]';% keeping only threshold crossings that are sufficiently spaced
-
 
 % KV edit 091923: add a spectrogram here (per channel): 
     spkSigref0=spkSig_total_LFP;
@@ -225,7 +223,7 @@ for ch11= 1:32
     ylabel('Mean spikes/sec');    
 
     % C. Mean, baseline-corrected, smoothed firing rate: 
-    % 1. Calculate average across trials and smooth:        
+    % 1C. Calculate average across trials and smooth:        
     krnl = hanning(krnl_size)/sum(hanning(krnl_size)); % hanning window - the kernel must be normalized to its size so that it sums to 1
     tAxis_smoothed = conv(mean(timeAxis,1),krnl,'valid');
     instFR_smoothed = conv2(instFR,krnl','valid'); % the direction of kernel ensures smoothing only in time dimension
@@ -233,7 +231,7 @@ for ch11= 1:32
     bslnFR = instFR(:,bslnWin);
     bslnFR_smoothed = conv2(bslnFR,krnl','valid'); % the direction of kernel ensures smoothing only in time dimension
 
-    % 2. Baseline correction using resampling technique:    
+    % 2C. Baseline correction using resampling technique:    
     FRzScore = [];
     permutedFR = [];
     for trl = 1:length(stims) % each train
@@ -245,13 +243,13 @@ for ch11= 1:32
         FRzScore(trl,:) = squeeze(dummy(:,:,1)); % keeping every observed trial's z score            
     end
     
-    % 3. For aggregate z:
+    % 3C. For aggregate z:
     %permutedFR: trials x time x permutations (1st is ovserved value)
     MeanTrlZscore = zscore(squeeze(mean(permutedFR,1)),[],2); % z score of trial average relative to permutations
     measures.channels(channel).aggregateZscore = MeanTrlZscore(:,1); % keeping only obsverved permutation's z score
     measures.channels(channel).trialZscore = FRzScore; % all trial z scores are saved
     
-    % 4. Quantify response:
+    % 4C. Quantify response:
     ResponseWin = find(tAxis_smoothed>0 & tAxis_smoothed<=postStimWin); % the acceptable response window in samples after time zero
     % Positive peak of each trial:
     [MaxZ,Latency] = max(FRzScore(:,ResponseWin),[],2); 
@@ -266,7 +264,7 @@ for ch11= 1:32
     measures.PSTHtimeAxis   = timeAxis;
     measures.zScoreTimeAxis = tAxis_smoothed;
     
-    % 5. Plot z scored FR:
+    % 5C. Plot z scored FR:
     subplot(3,1,3,ZtraceX);
     plot(tAxis_smoothed,measures.channels(channel).aggregateZscore,'k');
     xlabel('Time (s) from stimulus onset');
