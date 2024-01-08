@@ -215,14 +215,14 @@ for ch11= 1:32
     title(['Filtered and referenced data', num2str(channel)]);
     measures.channels(channel).instFRperSecond = instFR;
     
-    % B. PSTH: 
+% B. PSTH: 
     subplot(3,1,2,PSTHX);
     timeAxis = -preStimWin:bin_size:postStimWin-bin_size;    
     meanFR = mean(instFR,1);
     bar(timeAxis,meanFR,'FaceColor','k');
     ylabel('Mean spikes/sec');    
 
-    % C. Mean, baseline-corrected, smoothed firing rate: 
+% C. Mean, baseline-corrected, smoothed firing rate: 
     % 1C. Calculate average across trials and smooth:        
     krnl = hanning(krnl_size)/sum(hanning(krnl_size)); % hanning window - the kernel must be normalized to its size so that it sums to 1
     tAxis_smoothed = conv(mean(timeAxis,1),krnl,'valid');
