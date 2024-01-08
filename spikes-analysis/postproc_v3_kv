@@ -1,4 +1,5 @@
-%% Post processing for sorted single unit data from Kilosort/phy. Used for thalamic and cerebellar in vivo recordings.
+%% Post processing for sorted single unit data from Kilosort/phy. Used for thalamic and cerebellar in vivo recordings (OpenEphys; 32 channel NNX probe).
+
 %Create DATA structure with PSTH and Zscore
 % updated to work with concatenated outputs.
 % function DATA = createDATAstruct(path0) 
