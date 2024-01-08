@@ -65,7 +65,6 @@ measures.sigFilterLoCutoff = 200; % Lo-pass cutoff frequency
 
 % Start channel-specific processing:
 load('Z:\Shared\DATA\Electrophysiology\In vivo\AD\CB_NODE_eStim\chanMapNNX32b.mat');
-
 spkSig_total =[];
 spkSig_total_LFP =[];
 
