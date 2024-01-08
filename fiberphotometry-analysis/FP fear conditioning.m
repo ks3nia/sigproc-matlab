@@ -212,8 +212,8 @@ saveas(DFZ10,'Trials and average(z score).jpeg');
 savefig(DFZ10,'Trials and average (z score).fig');
 
 %%%%%%%%%%%%%%%%
-%% 8. Plot some heatmaps: 2/3/23
-%trials on y axis, x axis = z scored df/F or reg df/F
+%% 8. Plot some heatmaps:
+%trials on y axis, x axis = z scored df/F or reg df/F aligned to tone onset
 HTMP = figure;
 subplot(1,2,1);
 imagesc(timeAxis,1:size(dfZtotal), dfZtotal);axis xy;colorbar;title('Z scored df/F');
