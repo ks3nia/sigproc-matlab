@@ -98,7 +98,7 @@ for channel=1:32 %for all channels
 end
 
 %%%%%%%%%
-CONTINUE HERE and go channel by channel:
+% CONTINUE HERE and go channel by channel:
 RecLocation = inputdlg('enter recording location');   
 StimIntensity = inputdlg('enter stim intensity');
 ArchT = inputdlg('ArchT? 1-yes 0-no');
