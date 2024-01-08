@@ -1,5 +1,5 @@
 %%This is collaborative code created by EA, AD, and KV for multiunit analysis of in vivo recordings collected with 32 channel neuronexus probe
-%4/18/2021: edited from OpEp_spikes_v9b, to analyze KV's opto recordings. 
+%4/18/2021: edited by EA from OpEp_spikes_v9b, to analyze KV's opto recordings. 
 %6/3/2021: v1_2 edited by AD to plot waveform after stim pulses
 %6/28/21: edited by KV to figure out latency of response, fixed errors
 %7/12/21: KV edit to add referencing (average across all channels)
