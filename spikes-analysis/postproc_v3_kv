@@ -1,10 +1,10 @@
-%% Create DATA structure with PSTH and Zscore
+%% Post processing for sorted single unit data from Kilosort/phy. Used for thalamic and cerebellar in vivo recordings.
+%Create DATA structure with PSTH and Zscore
 % updated to work with concatenated outputs.
 % function DATA = createDATAstruct(path0) 
 % path to kilosort and phy outputs (should be raw data location too)
 %Edited by KV 8/21/23 for PF optrode recordings
-%Edited by KV in October 2023 to add waveform properties, check sorting
-%quality, added scrolling psth/raster plots, add auto search for responders, some quantification of firing rate etc
+%Edited by KV in October 2023 to add waveform properties, check sorting quality, added scrolling psth/raster plots, add auto search for responders, some quantification of firing rate etc
 
 clear; clc;
 addpath(genpath('Z:\Shared\MATLAB scripts\Ksenia\in vivo analysis\Kilosort post-processing'));
