@@ -73,9 +73,6 @@ xlabel('Time (s) from stimulus onset');
 ylabel('Cells');
 set(gca,'fontName','arial','fontSize',12,'box','off','Ycolor','k','Xcolor','k','TickDir','out','TickLength',[0.005,0.005]);
 set(HTMP,'color','w');
-% clim([-1, 4]);
-% xlim([-0.5,0.75]);
-% xlim([-100,300]);
 title('10mW inhibition');
 xline(0,'color','w'); % marking stim on/off
 hold on;
@@ -110,8 +107,6 @@ for i=1:length(data_totalgfp) %5 recordings
 end
 
 HTMP = figure;
-% subplot(2,1,1)
-% imagesc(m.timeAxis,1:size(group1_totalgfp,1),group1_totalgfp);axis xy;colorbar;
 imagesc(m.timeAxis,1:size(group1_total,1),group1_total);axis xy;colorbar;
 colormap(viridis);
 xlabel('Time (s) from stimulus onset');
@@ -122,14 +117,10 @@ clim([-1, 4]);
 xline(0,'color','w'); % marking stim on/off
 hold on;
 xline(24,'color','w');
-% xlim([-0.5,0.75]);
-% xlim([-5,25]);
 title('10mW inhibition: ArchT');
 
 HTMP2 = figure;
-% subplot(2,1,1)
 imagesc(m.timeAxis,1:size(group1_totalgfp,1),group1_totalgfp);axis xy;colorbar;
-% imagesc(m.timeAxis,1:size(group1_total,1),group1_total);axis xy;colorbar;
 colormap(viridis);
 xlabel('Time (s) from stimulus onset');
 ylabel('Cells');
@@ -139,8 +130,6 @@ clim([-1, 4]);
 xline(0,'color','w'); % marking stim on/off
 hold on;
 xline(24,'color','w');
-% xlim([-0.5,0.75]);
-% xlim([-5,25]);
 title('10mW inhibition: Control');
 
 
@@ -163,7 +152,6 @@ figure;
 imagesc(squeeze(wf.waveFormsMean)) %this is a heatmap of where the unit is located on the array
 set(gca, 'YDir', 'normal'); xlabel('time (samples)'); ylabel('channel number'); 
 colormap(colormap_BlueWhiteRed); 
-% caxis([-1 1]*max(abs(caxis()))/2); 
 box off;
 
 figure; 
