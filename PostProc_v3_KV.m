@@ -80,15 +80,12 @@ xline(0,'color','w'); % marking stim on/off
 hold on;
 xline(24,'color','w');
 
-
 %% SUMMARY HEATMAPS: plot heatmap of all units across all animals. try arranging anterior to posterior (y axis)
-
 data0915 = load('DATA_202310241047.mat'); %9/15
 data0920 = load('DATA_202310241056.mat'); %9/20
 data0918 = load('DATA_202310241054.mat'); %9/18
 data0929 = load('DATA_202310241103.mat'); %9/29
 data1002 = load('DATA_202310241112.mat'); %10/02
-
 data_total = [data0915, data0920, data0918, data0929, data1002];
 
 load('Z:\Shared\DATA\Electrophysiology\In vivo\KV\in vivo\PF optrode\z20231002_PF optrode\100223_40trialsLP\thMeasures202310241112.mat'); %REMEMBER TO LOAD THE RIGHT MEASURES FILE!
@@ -148,7 +145,6 @@ title('10mW inhibition: Control');
 
 %% Plot Waveforms 
 path='Z:\Shared\DATA\Electrophysiology\In vivo\KV\in vivo\PF optrode\z20230920_PF optrode\092023_40trialsLP\z2023-09-20_13-17-48\';
-
 gwfparams.dataDir = path;    % KiloSort/Phy output folder
 gwfparams.fileName = dir([path,'/*.dat']);   
 gwfparams.fileName = gwfparams.fileName.name; % .dat file containing the raw 
@@ -160,7 +156,6 @@ sp = loadKSdir(path); %need this to load the next lines
 
 gwfparams.spikeTimes = ceil(sp.st(sp.clu==38)*30000); % Vector of cluster spike times (in samples) same length as .spikeClusters %this allows you to pick the unit of interest... 
 gwfparams.spikeClusters = sp.clu(sp.clu==38);
-
 wf = getWaveForms(gwfparams); %all of these values are in samples
 
 figure;
@@ -171,8 +166,8 @@ colormap(colormap_BlueWhiteRed);
 box off;
 
 figure; 
-meanWf=squeeze(wf.waveFormsMean(:,28,:)); %the second dimension, pick the channel with the biggest signal based on the heatmap (should be a better way to do this)
-plot(meanWf) %this works!! 
+meanWf=squeeze(wf.waveFormsMean(:,28,:)); %the second dimension, pick the channel with the biggest signal based on the heatmap 
+plot(meanWf) 
 set(gca, 'YDir', 'normal'); xlabel('time (samples)'); ylabel('voltage (uV??)'); %whats the scale here?
 
 %% PLOT ALL RELEVANT INFO FOR ALL UNITS: 
@@ -191,11 +186,7 @@ plot_waveforms2(rez,clusts) %this works but only seems to plot some of the good 
 %% SUMMARY DATA ANALYSIS: try other functions to get all the info we need from phy directly: 10/08-10/12/23 KV edits
 
 % Following this tutorial: https://github.com/cortex-lab/neuropixels/wiki/Other_analysis_methods#loading-raw-waveforms-or-spike-triggered-lfp-eg
-%various functions downloaded from here:
-%https://github.com/cortex-lab/spikes/blob/master/analysis/templatePositionsAmplitudes.m
-%(added all to Kilosort analysis folder in matlabscripts folder on the server)
-%Note: some of this works, could potentially be useful. Users should follow
-%sections in order to load proper variables. 
+%various functions downloaded from here: https://github.com/cortex-lab/spikes/blob/master/analysis/templatePositionsAmplitudes.m
 
 myKsDir = 'Z:\Shared\DATA\Electrophysiology\In vivo\KV\in vivo\Test DCN\20231107_DCNtest2_LP\z2023-11-07_15-58-17\';
 sp = loadKSdir(myKsDir)
@@ -205,6 +196,7 @@ sp = loadKSdir(myKsDir)
 % %Spikes from clusters labeled "noise" have already been omitted. 
 % sp.cids tells you which cluster corresponds to each entry of sp.cgs, e.g. sp.cgs(sp.cids==943) will give you the cluster group for cluster 943. 
 
+%%%%%%%%%%%%%%%%%%%%
 % 1. Analyze drift over time: 
 [spikeTimes, spikeAmps, spikeDepths, spikeSites] = ksDriftmap(myKsDir);
 figure; 
@@ -213,6 +205,7 @@ plotDriftmap(spikeTimes, spikeAmps, spikeYpos); %not sure if this is right
 
 %Note that the channel map file used here has channel 1 at y-position=0, and since channel 1 is the site nearest the tip of the probe, this plot goes from the tip of the probe at the bottom to the most superficial part at the top.
 
+%%%%%%%%%%%%%%%%%%%%
 %% 2. Quantify spiking amplitudes: see where on the probe different amplitudes were recorded and plot a colormap of the spikes across depth and amp
 
 depthBinSize = 1; % in units of the channel coordinates, in our case this is channel number (ycoords)
@@ -224,7 +217,7 @@ ksDir=myKsDir;
 [spikeAmps, spikeDepths, templateYpos, tempAmps, tempsUnW, tempDur, tempPeakWF] = ...
   templatePositionsAmplitudes(sp.temps, sp.winv, sp.ycoords, sp.spikeTemplates, sp.tempScalingAmps);
 
-
+%%%%%%%%%%%%%%%%%%%%
 %% 3. Individual psths and rasters: can scroll through these to see all the clusters easily
 % can also load phy output from scratch here first (change the data struct so that it has events)
 %need to go into datafolder of interest each time probably
@@ -233,35 +226,28 @@ ksDir=myKsDir;
 myKsDir = 'Z:\Shared\DATA\Electrophysiology\In vivo\KV\in vivo\PF optrode\z20230915_PF optrode\09152023_40trialsLP\z2023-09-15_12-26-49\';
 % %load data:
 load('DATA_202310161430.mat'); %9/15 %checked sorting again for ISIs
-
 myKsDir = 'Z:\Shared\DATA\Electrophysiology\In vivo\KV\in vivo\PF optrode\z20230918_PF optrode\091823_40trialsLP\z2023-09-18_12-53-21\';
 % %load data:
 load('DATA_202310161435.mat'); %9/18 
-
 myKsDir = 'Z:\Shared\DATA\Electrophysiology\In vivo\KV\in vivo\PF optrode\z20230920_PF optrode\092023_40trialsLP\z2023-09-20_13-17-48\';
 % %load data:
 load('DATA_202310161441.mat'); %9/20  
-
 myKsDir = 'Z:\Shared\DATA\Electrophysiology\In vivo\KV\in vivo\PF optrode\z20230929_PF optrode\09292023_40trialsLP\z2023-09-29_14-00-01\';
 % %load data:
 load('DATA_202310161447.mat'); %9/29 
-
 myKsDir = 'Z:\Shared\DATA\Electrophysiology\In vivo\KV\in vivo\PF optrode\z20231002_PF optrode\100223_40trialsLP\z2023-10-02_13-53-54\';
 %load data:
 load('DATA_202310161455.mat'); %10/02  
 
-
 %%% LOAD DATA FOR GFP:
 myKsDir='Z:\Shared\DATA\Electrophysiology\In vivo\KV\in vivo\PF optrode\z20230912_PF optrode\09122023_40trialsLP\z2023-09-12_14-22-34\';
 load('DATA_202310161407.mat'); %0912 no virus female %checked sorting again for ISIs
-
 myKsDir='Z:\Shared\DATA\Electrophysiology\In vivo\KV \in vivo\PF optrode\z20230913_PF optrode\091323_40trialsLP\z2023-09-13_12-31-59\';
 load('DATA_202310161417.mat'); %0913 gfp female %checked sorting again for ISIs
-
 myKsDir='Z:\Shared\DATA\Electrophysiology\In vivo\KV\in vivo\PF optrode\z20230928_PF optrode\09282023_40trialsLP\z2023-09-28_13-50-23\'
 load('DATA_202310161359.mat'); %0928 gfp male %checked sorting again for ISIs
 
-%%%%%%%%% PLOT PSTHS AND RASTERS FOR EACH EXPERIMENT
+%Plot psths and rasters for each experiment:
 %for this, need to have all clusters marked as either good or noise (skips the noise)
 %can skip above loading steps if loaded already from previous sections
 sp=loadKSdir(myKsDir)
@@ -270,6 +256,7 @@ eventTimes=DATA.th.mW10{1, 7};  %this is from the DATA structure of the recordin
 trialGroups = ones(size(eventTimes)); 
 psthViewer(sp.st, sp.clu, eventTimes, window, trialGroups); %this works 
 
+%%%%%%%%%%%%%%%%%%%%
 %% 4. Plot the stimulus aligned PSTH heatmap for all spikes at all depths
 %basically same thing as our heatmap in the second section (more flexibility with the scaling since you dont have to recalculate the datastruct each time)
 
